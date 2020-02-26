@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import androidx.annotation.Nullable;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
 
 import com.facebook.common.executors.UiThreadImmediateExecutorService;
 import com.facebook.common.references.CloseableReference;
@@ -308,7 +311,7 @@ public class WeChatModule extends ReactContextBaseJavaModule implements IWXAPIEv
         }
 
         if (uri != null) {
-            this._getImage(uri, new ResizeOptions(100, 100), new ImageCallback() {
+            this._getImage(uri, null, new ImageCallback() {
                 @Override
                 public void invoke(@Nullable Bitmap bitmap) {
                     WeChatModule.this._share(scene, data, bitmap, callback);
@@ -336,6 +339,19 @@ public class WeChatModule extends ReactContextBaseJavaModule implements IWXAPIEv
         ImageRequestBuilder builder = ImageRequestBuilder.newBuilderWithSource(uri);
         if (resizeOptions != null) {
             builder = builder.setResizeOptions(resizeOptions);
+            Log.d(resizeOptions.width+"","");
+            Log.d(resizeOptions.height+"","");
+        }else{
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+
+            BitmapFactory.decodeFile(uri.getPath(),options);
+            Log.d(options.outWidth+"","");
+            Log.d(options.outHeight+"","");
+            ResizeOptions resizeOptions2 = new ResizeOptions(options.outWidth*2, options.outHeight*2,10000000);
+
+            builder = builder.setResizeOptions(resizeOptions2);
         }
         ImageRequest imageRequest = builder.build();
 
@@ -611,3 +627,4 @@ public class WeChatModule extends ReactContextBaseJavaModule implements IWXAPIEv
     }
 
 }
+
