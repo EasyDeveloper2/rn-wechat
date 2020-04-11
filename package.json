@@ -1,6 +1,6 @@
 {
   "name": "rn-wechat-fix",
-  "version": "1.10.0",
+  "version": "1.12.0",
   "description": "react-native library for wechat app",
   "main": "index.js",
   "scripts": {
