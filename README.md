@@ -1,5 +1,9 @@
 <img height="200" src="./weixin.png?raw=true">
 
+版本更新
+
+1.13.0 - ios取消了UIView
+
 特别说明:本库是基于React-natvie-wechat修改而来,增加了 微信分享小程序卡片和App拉起小程序功能
 
 使用如下
